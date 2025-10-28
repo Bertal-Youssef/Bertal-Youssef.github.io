@@ -3,153 +3,349 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Youssef Bertal — Data Engineer/Scientist Portfolio</title>
-  <meta name="description" content="Portfolio de Youssef Bertal — Data Engineer/Scientist. Pipelines de données, MLOps, streaming temps réel, BI. Stage PFE 6 mois disponible." />
-  <meta property="og:title" content="Youssef Bertal — Data Engineer/Scientist Portfolio" />
-  <meta property="og:description" content="Pipelines de données, MLOps, streaming temps réel, BI. Expertise complète du cycle de vie des données." />
+  <title>Youssef Bertal — Data Engineer Portfolio</title>
+  <meta name="description" content="Portfolio de Youssef Bertal — Data Engineer. Pipelines de données, streaming temps réel, architecture lakehouse, orchestration. Stage PFE 6 mois disponible." />
+  <meta property="og:title" content="Youssef Bertal — Data Engineer Portfolio" />
+  <meta property="og:description" content="Pipelines de données, streaming temps réel, architecture lakehouse. Expertise complète du cycle de vie des données." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://Bertal-Youssef.github.io/" />
   <link rel="icon" href="/assets/img/favicon.png" />
   <style>
     :root {
-      --bg: #0a0e12;
-      --panel: #12171d;
-      --text: #f0f4f8;
-      --muted: #94a3b8;
-      --brand: #3b82f6;
-      --brand-glow: rgba(59, 130, 246, 0.4);
-      --brand-2: #8b5cf6;
-      --accent: #10b981;
-      --ok: #22c55e;
-      --warn: #f59e0b;
+      --bg: #000000;
+      --bg-gradient: #1a0b2e;
+      --panel: #0d0620;
+      --panel-light: #1a0f35;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --brand: #7b2cbf;
+      --brand-glow: rgba(123, 44, 191, 0.5);
+      --brand-2: #e91e63;
+      --accent: #00f0ff;
+      --accent-glow: rgba(0, 240, 255, 0.4);
+      --success: #39ff14;
+      --warn: #fbbf24;
       --danger: #ef4444;
       --radius: 16px;
-      --shadow: 0 20px 50px rgba(0,0,0,.5);
+      --shadow: 0 20px 50px rgba(123, 44, 191, 0.3);
+      --shadow-cyan: 0 0 30px rgba(0, 240, 255, 0.3);
       --maxw: 1200px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0; 
-      background: radial-gradient(ellipse 1400px 900px at 50% -20%, #1a2332, var(--bg));
+      background: radial-gradient(ellipse 1400px 900px at 50% -20%, var(--bg-gradient), var(--bg));
       color: var(--text); 
       font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
     }
-    a { color: var(--brand); text-decoration: none; transition: all 0.2s ease; }
-    a:hover { text-decoration: underline; color: #60a5fa; }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(90deg, rgba(123, 44, 191, 0.03) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(123, 44, 191, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    a { color: var(--accent); text-decoration: none; transition: all 0.3s ease; }
+    a:hover { text-decoration: none; color: var(--brand-2); text-shadow: 0 0 10px var(--brand-glow); }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
     
     header {
-      position: sticky; top: 0; z-index: 30; backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(10,14,18,.9), rgba(10,14,18,.6), rgba(10,14,18,0));
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      position: sticky; top: 0; z-index: 30; backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.7), rgba(0,0,0,0));
+      border-bottom: 1px solid rgba(123, 44, 191, 0.3);
+      box-shadow: 0 4px 20px rgba(123, 44, 191, 0.2);
     }
     .nav {
       display: flex; align-items: center; justify-content: space-between; height: 70px;
     }
     .brand { font-weight: 800; letter-spacing: .3px; font-size: 1.1rem; }
-    .brand small { color: var(--muted); font-weight: 500; font-size: .9rem; }
-    nav a { margin-left: 24px; font-weight: 600; color: var(--text); opacity: .85; }
+    .brand { 
+      background: linear-gradient(135deg, var(--accent), var(--brand), var(--brand-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px var(--brand-glow));
+    }
+    .brand small { color: var(--muted); font-weight: 500; font-size: .9rem; -webkit-text-fill-color: var(--muted); }
+    nav a { margin-left: 24px; font-weight: 600; color: var(--text); opacity: .85; position: relative; }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      transition: width 0.3s ease;
+    }
     nav a:hover { opacity: 1; text-decoration: none; }
+    nav a:hover::after { width: 100%; }
 
     .hero {
       padding: 90px 0 50px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center;
     }
     .hero h1 { 
-      font-size: clamp(2.2rem, 3.2vw, 3.6rem); 
+      font-size: clamp(2.4rem, 3.5vw, 4rem); 
       line-height: 1.1; 
       margin: 0 0 16px; 
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff 0%, var(--brand) 100%);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--brand) 50%, var(--brand-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px var(--brand-glow));
+      animation: glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 20px var(--brand-glow)); }
+      50% { filter: drop-shadow(0 0 40px var(--accent-glow)); }
+    }
+    .hero p.lead { color: var(--muted); font-size: 1.15rem; margin: 0 0 28px; line-height: 1.65; }
+    .hero p.lead strong { color: var(--success); font-weight: 700; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(123, 44, 191, 0.4);
+      background: linear-gradient(135deg, var(--panel), var(--panel-light));
+      padding: 12px 20px; border-radius: 999px; color: var(--text); font-weight: 700; 
+      box-shadow: var(--shadow);
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(123, 44, 191, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    .btn span { position: relative; z-index: 1; }
+    .btn:hover { transform: translateY(-2px); border-color: var(--brand); text-decoration: none; box-shadow: 0 25px 60px var(--brand-glow); }
+    .btn.primary { 
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); 
+      color: #fff; 
+      border: 2px solid transparent;
+      box-shadow: 0 0 30px var(--brand-glow);
+    }
+    .btn.primary:hover { 
+      background: linear-gradient(135deg, var(--brand-2), var(--brand)); 
+      box-shadow: 0 0 50px var(--brand-glow), 0 25px 60px rgba(123, 44, 191, 0.4);
+    }
+    .btn.ghost { background: transparent; border: 1px solid rgba(0, 240, 255, 0.3); }
+    .btn.ghost:hover { border-color: var(--accent); box-shadow: var(--shadow-cyan); }
+
+    .panel { 
+      background: linear-gradient(135deg, var(--panel) 0%, var(--panel-light) 100%); 
+      border: 1px solid rgba(123, 44, 191, 0.3); 
+      border-radius: var(--radius); 
+      box-shadow: var(--shadow); 
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    .panel:hover::before {
+      left: 100%;
+    }
+
+    .skills { padding: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skill { 
+      padding: 16px 18px; border-radius: 14px; 
+      background: linear-gradient(135deg, #0f0820, #1a0b2e); 
+      border: 1px solid rgba(123, 44, 191, 0.3); 
+      color: var(--text); font-weight: 700; 
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .skill:hover::after {
+      transform: scaleX(1);
+    }
+    .skill:hover { 
+      border-color: var(--accent); 
+      transform: translateY(-4px); 
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+    .skill em { display: block; font-style: normal; color: var(--muted); font-weight: 600; margin-top: 6px; font-size: .9rem; }
+
+    .section { padding: 50px 0; }
+    .section h2 { 
+      margin: 0 0 16px; 
+      font-size: clamp(1.8rem, 2.6vw, 2.4rem); 
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hero p.lead { color: var(--muted); font-size: 1.15rem; margin: 0 0 28px; line-height: 1.65; }
-    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,.15);
-      background: linear-gradient(180deg, #1e2530, #161b24);
-      padding: 12px 20px; border-radius: 999px; color: var(--text); font-weight: 700; 
-      box-shadow: var(--shadow);
-      transition: all .2s ease;
-    }
-    .btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.3); text-decoration: none; box-shadow: 0 25px 60px rgba(0,0,0,.6); }
-    .btn.primary { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border-color: transparent; }
-    .btn.primary:hover { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
-    .btn.ghost { background: transparent; }
-
-    .panel { 
-      background: linear-gradient(180deg, var(--panel), #0d1117); 
-      border: 1px solid rgba(255,255,255,.08); 
-      border-radius: var(--radius); 
-      box-shadow: var(--shadow); 
-    }
-
-    .skills { padding: 28px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-    .skill { 
-      padding: 16px 18px; border-radius: 14px; 
-      background: linear-gradient(135deg, #0f1419, #0a0e12); 
-      border: 1px solid rgba(255,255,255,.08); 
-      color: var(--text); font-weight: 700; 
-      transition: all .2s ease;
-    }
-    .skill:hover { border-color: var(--brand); transform: translateY(-2px); }
-    .skill em { display: block; font-style: normal; color: var(--muted); font-weight: 600; margin-top: 6px; font-size: .9rem; }
-
-    .section { padding: 50px 0; }
-    .section h2 { margin: 0 0 16px; font-size: clamp(1.6rem, 2.4vw, 2.2rem); font-weight: 800; }
     .section p.sub { color: var(--muted); margin: 0 0 20px; font-size: 1.05rem; }
 
     .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
     .chip { 
       padding: 10px 18px; border-radius: 999px; 
-      border: 1px solid rgba(255,255,255,.15); 
-      background: #0f1419; color: var(--text); cursor: pointer; 
-      font-weight: 700; transition: all .2s ease;
+      border: 1px solid rgba(123, 44, 191, 0.3); 
+      background: var(--panel); color: var(--text); cursor: pointer; 
+      font-weight: 700; transition: all .3s ease;
     }
-    .chip:hover { border-color: var(--brand); }
+    .chip:hover { 
+      border-color: var(--brand); 
+      box-shadow: 0 0 20px var(--brand-glow);
+      transform: translateY(-2px);
+    }
     .chip[aria-pressed="true"] { 
-      background: linear-gradient(135deg, var(--brand-2), #7c3aed); 
-      color: #fff; border-color: transparent;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); 
+      color: #fff; 
+      border-color: transparent;
+      box-shadow: 0 0 30px var(--brand-glow);
     }
 
     .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
     .card { 
       grid-column: span 6; 
-      background: linear-gradient(180deg, #0f1318, #0c0f14); 
-      border: 1px solid rgba(255,255,255,.08); 
+      background: linear-gradient(135deg, var(--panel) 0%, var(--panel-light) 100%); 
+      border: 1px solid rgba(123, 44, 191, 0.3); 
       border-radius: 18px; overflow: hidden; 
       box-shadow: var(--shadow); 
-      transition: all .3s ease;
+      transition: all .4s ease;
+      position: relative;
     }
-    .card:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, .4); box-shadow: 0 25px 60px rgba(0,0,0,.7); }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card:hover { 
+      transform: translateY(-8px); 
+      border-color: var(--accent); 
+      box-shadow: 0 30px 70px var(--brand-glow), 0 0 50px var(--accent-glow);
+    }
     .thumb { 
-      height: 180px; 
-      background: radial-gradient(600px 180px at 30% 0%, rgba(59, 130, 246, .3), transparent), 
-                  linear-gradient(135deg, rgba(59, 130, 246, .15), rgba(139, 92, 246, .15)); 
-      border-bottom: 1px solid rgba(255,255,255,.08); 
+      height: 200px; 
+      background: radial-gradient(600px 200px at 30% 0%, rgba(0, 240, 255, 0.3), rgba(123, 44, 191, 0.3)), 
+                  linear-gradient(135deg, rgba(123, 44, 191, 0.2), rgba(233, 30, 99, 0.2)); 
+      border-bottom: 1px solid rgba(123, 44, 191, 0.3);
+      position: relative;
+      overflow: hidden;
     }
-    .card .body { padding: 20px; }
-    .card h3 { margin: 0 0 8px; font-size: 1.15rem; font-weight: 700; }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    .card .body { padding: 20px; position: relative; z-index: 1; }
+    .card h3 { margin: 0 0 8px; font-size: 1.2rem; font-weight: 700; color: var(--text); }
     .badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
     .badge { 
       font-size: .8rem; padding: 5px 10px; border-radius: 999px; 
-      background: #0d1117; border: 1px solid rgba(255,255,255,.1); 
-      color: var(--muted); font-weight: 700; 
+      background: linear-gradient(135deg, rgba(123, 44, 191, 0.2), rgba(0, 240, 255, 0.2)); 
+      border: 1px solid rgba(0, 240, 255, 0.3); 
+      color: var(--accent); font-weight: 700; 
     }
-    .card p { margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
+    .card p { margin: 0 0 12px; color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
     .card p strong { color: var(--text); }
     .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
 
     .about { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
     .list { margin: 0; padding-left: 20px; color: var(--muted); line-height: 1.8; }
     .list li { margin-bottom: 8px; }
+    .list strong { color: var(--text); }
 
-    footer { padding: 30px 0 40px; color: var(--muted); text-align: center; font-size: .95rem; }
+    footer { 
+      padding: 30px 0 40px; 
+      color: var(--muted); 
+      text-align: center; 
+      font-size: .95rem;
+      border-top: 1px solid rgba(123, 44, 191, 0.3);
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, rgba(123, 44, 191, 0.15), rgba(0, 240, 255, 0.15));
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 24px;
+      text-align: center;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .stat-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    .stat-box .number {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--brand-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .experience-box {
+      padding: 28px;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--accent);
+    }
 
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
@@ -160,19 +356,20 @@
     }
     @media (min-width: 961px) and (max-width: 1200px) {
       .card { grid-column: span 6; }
-      .skills { grid-template-columns: repeat(3, 1fr); }
+      .skills { grid-template-columns: repeat(2, 1fr); }
     }
-    :focus-visible { outline: 3px solid var(--brand-2); outline-offset: 2px; border-radius: 8px; }
+    :focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 8px; }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <div class="brand">Youssef Bertal <small>Data Engineer/Scientist</small></div>
+      <div class="brand">Youssef Bertal <small>Data Engineer</small></div>
       <nav>
         <a href="#skills">Compétences</a>
-        <a href="#realisation">Réalisation</a>
+        <a href="#experience">Expérience</a>
         <a href="#projects">Projets</a>
+        <a href="#realisation">Distinctions</a>
         <a href="#about">À propos</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -183,289 +380,373 @@
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <h1 id="hero-title">Data Engineer & Scientist</h1>
-        <p class="lead">Je conçois des architectures data de A à Z : pipelines ETL/ELT robustes, streaming temps réel, MLOps en production et visualisations BI à fort impact métier. <strong>Stage PFE 6 mois disponible dès janvier/février 2026.</strong></p>
+        <h1 id="hero-title">Data Engineer</h1>
+        <p class="lead">Je conçois des architectures data scalables de bout en bout : pipelines ETL/ELT robustes, streaming temps réel, data lakehouses, orchestration production-ready et observabilité complète. <strong>Stage PFE 6 mois disponible dès janvier/février 2026.</strong></p>
         <div class="cta" role="group" aria-label="Actions principales">
-          <a class="btn primary" href="#projects">Voir les projets</a>
-          <a class="btn" href="assets/cv/CV.Youssef.Bertal.ES.pdf" download> CV Data Engineer/Scientist</a>
-    
-          <a class="btn ghost" href="https://www.linkedin.com/in/youssef-bertal-7a581b271" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn ghost" href="https://github.com/Bertal-Youssef" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn primary" href="#projects"><span> Voir les projets</span></a>
+          <a class="btn" href="assets/cv/CV.Youssef.Bertal.ES.pdf" download><span> CV Data Engineer</span></a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/youssef-bertal-7a581b271" target="_blank" rel="noopener"><span>💼 LinkedIn</span></a>
+          <a class="btn ghost" href="https://github.com/Bertal-Youssef" target="_blank" rel="noopener"><span>💻 GitHub</span></a>
         </div>
       </div>
       <div class="panel" style="padding:28px;">
-        <h2 style="margin-top:0; font-size:1.4rem;"> Points forts</h2>
+        <h2 style="margin-top:0; font-size:1.4rem;">⚡ Points forts</h2>
         <ul class="list">
-          <li>Pipelines <strong>Spark + Airflow</strong> en production avec monitoring et traçabilité</li>
-          <li>Architecture <strong>Data Lake & DWH</strong> : HDFS, Hive, PostgreSQL, Snowflake</li>
-          <li><strong>MLOps</strong> complet : ZenML, MLflow, Docker, CI/CD</li>
-          <li>Streaming temps réel : <strong>Kafka, Elasticsearch, Kibana</strong></li>
-          <li>Business Intelligence : <strong>Power BI</strong> avec dashboards orientés métier</li>
+          <li>Architecture distribuée scalable et résiliente</li>
+          <li>Pipelines production avec monitoring et traçabilité complète</li>
+          <li>Streaming temps réel à faible latence</li>
+          <li>Orchestration de workflows complexes</li>
+          <li>Optimisation des performances et coûts</li>
+          <li>Visualisation et reporting orientés métier</li>
         </ul>
       </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" class="section" aria-labelledby="skills-title">
-      <h2 id="skills-title">Compétences clés</h2>
-      <p class="sub">Expertise Data Engineering + Compétences Data Science pour une approche complète du cycle de vie des données.</p>
+      <h2 id="skills-title">🛠️ Stack Technique Data Engineering</h2>
+      <p class="sub">Expertise complète du cycle de vie des données : ingestion, transformation, stockage, orchestration et visualisation.</p>
       
       <!-- Stats rapides -->
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;">
-        <div class="panel" style="padding: 24px; text-align: center;">
-          <div style="font-size: 2.8rem; font-weight: 800; color: var(--brand);">6+</div>
-          <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Projets réalisés</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px;">
+        <div class="stat-box">
+          <div class="number">8+</div>
+          <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Projets Data Engineering</div>
         </div>
-        <div class="panel" style="padding: 24px; text-align: center;">
-          <div style="font-size: 2.8rem; font-weight: 800; color: var(--accent);">🥈</div>
+        <div class="stat-box">
+          <div class="number">🥈</div>
           <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Hackathon Africa 2024</div>
         </div>
-        <div class="panel" style="padding: 24px; text-align: center;">
-          <div style="font-size: 2.8rem; font-weight: 800; color: var(--brand-2);">3</div>
-          <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Stages professionnels</div>
-        </div>
-        <div class="panel" style="padding: 24px; text-align: center;">
-          <div style="font-size: 2.8rem; font-weight: 800; color: var(--warn);">Madrid</div>
-          <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Une expérience académique internationale</div>
+        <div class="stat-box">
+          <div class="number">Madrid</div>
+          <div style="color: var(--muted); font-weight: 600; margin-top: 4px;">Expérience internationale</div>
         </div>
       </div>
       
       <div class="skills panel" role="list">
-        <div class="skill" role="listitem">Pipelines & Orchestration <em>Spark, Airflow, Databricks</em></div>
-        <div class="skill" role="listitem">Big Data & Stockage <em>HDFS, Hive, S3, Snowflake</em></div>
-        <div class="skill" role="listitem">MLOps & CI/CD <em>ZenML, MLflow, Docker</em></div>
-        <div class="skill" role="listitem">Bases de données & BI <em>PostgreSQL, Power BI</em></div>
-        <div class="skill" role="listitem">Streaming & Observabilité <em>Kafka, Elastic, Kibana</em></div>
+        <div class="skill" role="listitem">Big Data Platforms <em>Cloudera, HortonWorks, Databricks, Talend</em></div>
+        <div class="skill" role="listitem">Data Processing <em>Spark, PySpark, Pandas, SQL, DBT</em></div>
+        <div class="skill" role="listitem">Storage <em>Hadoop (HDFS), Snowflake, MINIO-S3, NoSQL</em></div>
+        <div class="skill" role="listitem">Data Integration & Streaming <em>Apache Nifi, Apache Kafka</em></div>
+        <div class="skill" role="listitem">Languages <em>Python, Scala, SQL</em></div>
+        <div class="skill" role="listitem">Orchestration & Containerization <em>Apache Airflow, Docker, Kubernetes</em></div>
+        <div class="skill" role="listitem">Cloud Platforms <em>Microsoft Azure</em></div>
+        <div class="skill" role="listitem">Visualization <em>Power BI, Superset, Metabase, Grafana</em></div>
+        <div class="skill" role="listitem">APIs & DevOps <em>FastAPI, CI/CD (GitHub Actions)</em></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <h2 id="experience-title">💼 Expérience Professionnelle</h2>
+      
+      <!-- MAGRIFLY -->
+      <div class="panel experience-box">
+        <h3 style="margin: 0 0 18px; font-size: 1.4rem;">🌾 MAGRIFLY — Stage Data Engineer (Juin-Août 2025)</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; color: var(--muted);">
+          <div>
+            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;"> Pipeline de données agricoles</strong>
+            <ul class="list" style="margin: 0;">
+              <li>Traitement d'images aériennes HD de drones agricoles</li>
+              <li>Pipeline ETL automatisé : ingestion → transformation → data lake</li>
+              <li>Architecture structurée Bronze/Silver/Gold</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;"> Stack Engineering</strong>
+            <ul class="list" style="margin: 0;">
+              <li>Orchestration production avec DAGs schedulés</li>
+              <li>Data lake distribué et évolutif</li>
+              <li>Calcul d'indices à grande échelle (NDVI, SAVI)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <h2 id="experience-title">💼 Expérience Académique </h2>
+    
+      <!-- ERASMUS MADRID -->
+      <div class="panel experience-box" style="border-left-color: var(--brand-2);">
+        <h3 style="margin: 0 0 18px; font-size: 1.4rem;">🇪🇸 Universidad Complutense de Madrid — Échange Erasmus (Jan-Juin 2025)</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; color: var(--muted);">
+          <div>
+            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;"> Enrichissement académique</strong>
+            <ul class="list" style="margin: 0;">
+              <li>Cours avancés en Data Engineering et Big Data</li>
+              <li>Méthodologies européennes de gestion de données</li>
+              <li>Immersion culturelle et linguistique (espagnol)</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;"> Compétences développées</strong>
+            <ul class="list" style="margin: 0;">
+              <li>Architectures cloud-native et microservices</li>
+              <li>Data governance et conformité RGPD</li>
+              <li>Projets collaboratifs internationaux</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects" class="section" aria-labelledby="projects-title">
-      <h2 id="projects-title">Expérience & Projets</h2>
-      
-      <!-- Experience highlight -->
-      <div class="panel" style="padding: 28px; margin-bottom: 36px; border-left: 4px solid var(--brand);">
-        <h3 style="margin: 0 0 18px; font-size: 1.4rem;">💼 MAGRIFLY — Stage Data Engineer/Scientist (Juin-Août 2025)</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; color: var(--muted);">
-          <div>
-            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;">🌾 Analyse de données agricoles</strong>
-            <ul class="list" style="margin: 0;">
-              <li>Traitement d'images aériennes HD de drones agricoles</li>
-              <li>Calcul d'indices de végétation (NDVI, SAVI) pour évaluation des cultures</li>
-              <li>Détection automatisée des zones à risque</li>
-            </ul>
-          </div>
-          <div>
-            <strong style="color: var(--text); display: block; margin-bottom: 10px; font-size: 1.05rem;">⚙️ Pipeline & ML en production</strong>
-            <ul class="list" style="margin: 0;">
-              <li>Conception de pipelines ETL automatisés (Spark + Airflow)</li>
-              <li>Architecture data lake structurée (HDFS, Hive, PostgreSQL)</li>
-              <li>Transfer Learning + data augmentation sur images multispectrales</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <h2 id="projects-title">🚀 Projets Data Engineering</h2>
       
       <p class="sub">Filtrer les projets :</p>
       <div class="filters" role="group" aria-label="Filtres projets">
         <button class="chip" data-filter="all" aria-pressed="true">Tous</button>
-        <button class="chip" data-filter="DE">Data Engineering</button>
-        <button class="chip" data-filter="MLOps">MLOps</button>
+        <button class="chip" data-filter="Lakehouse">Lakehouse</button>
         <button class="chip" data-filter="Streaming">Streaming</button>
+        <button class="chip" data-filter="ETL">ETL/ELT</button>
+        <button class="chip" data-filter="BI">BI & Analytics</button>
         <button class="chip" data-filter="DS">Data Science</button>
       </div>
 
       <div class="grid" id="project-grid">
-        <!-- Card 1: ETL Tourisme -->
-        <article class="card" data-tags="DE,ETL,BI">
-                <img src="assets/img/projects/hotelrie.jpg" alt="dashboard" style="width:100%; height:180px; object-fit:cover;">
+        <!-- Card 1: Trading Lakehouse -->
+        <article class="card" data-tags="Lakehouse,Streaming,ETL,BI" style="grid-column: span 12;">
+          <div class="thumb">
+          <img src="assets/img/projects/DATALAKEHOUSE.jpg" alt="Pipeline TARDING">
+          </div>
+          <div class="body">
+            <h3> Plateforme d'Analytics Trading en Temps Réel | Data Lakehouse Hybride</h3>
+            <div class="badges">
+              <span class="badge">Architecture Medallion</span>
+              <span class="badge">Kafka</span>
+              <span class="badge">Spark</span>
+              <span class="badge">Iceberg</span>
+              <span class="badge">ClickHouse</span>
+              <span class="badge">Airflow</span>
+              <span class="badge">dbt</span>
+              <span class="badge">Trino</span>
+              <span class="badge">Docker</span>
+            </div>
+            <p><strong>Architecture hybride de bout en bout :</strong> Data lakehouse avec layers Medallion (Bronze/Silver/Gold), combinant pipelines batch et streaming temps réel.</p>
+            <p><strong>Stack complète (10+ services containerisés) :</strong></p>
+            <ul class="list" style="margin: 12px 0; font-size: 0.95rem;">
+              <li><strong>Ingestion :</strong> Kafka streaming + batch files</li>
+              <li><strong>Processing :</strong> Spark batch & streaming, dbt transformations</li>
+              <li><strong>Storage :</strong> Apache Iceberg (catalog), ClickHouse (OLAP), PostgreSQL (metadata)</li>
+              <li><strong>Query :</strong> Trino query engine (fédération de sources)</li>
+              <li><strong>Orchestration :</strong> Airflow (DAGs EOD), Redis cache</li>
+              <li><strong>BI :</strong> Dual dashboards (Superset + Metabase)</li>
+            </ul>
+            <p><strong>Performance :</strong> Latence temps réel <5s, architecture scalable et résiliente, traçabilité complète des données.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef/trading-analytics-Pipeline/blob/main/README.md">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: Tourisme ETL -->
+        <article class="card" data-tags="ETL,BI">
+          <div class="thumb">
+            <img src="assets/img/projects/hotelrie.jpg" alt="Pipeline Tourisme">
+          </div>
           <div class="body">
             <h3> Pipeline Analytique Tourisme & Hôtellerie</h3>
             <div class="badges">
-              <span class="badge">Production-ready</span>
+              <span class="badge">Production</span>
               <span class="badge">Spark</span>
               <span class="badge">Airflow</span>
-              <span class="badge">Power BI</span>
+              <span class="badge">Tableau</span>
             </div>
-            <p><strong>Impact :</strong> Optimisation du suivi touristique pour aide à la planification marketing et allocation des ressources hôtelières. Pipeline automatisé avec monitoring et traçabilité complète.</p>
-            <p><strong>KPIs livrés :</strong> Taux d'occupation, pics saisonniers, CA par région (Marrakech, Agadir, Fès).</p>
+            <p><strong>Sources :</strong> ONMT, Booking.com, Airbnb → Pipeline ETL automatisé vers data mart tourisme.</p>
+            <p><strong>Pipeline :</strong> CSV → Spark (nettoyage + agrégations) → Airflow (orchestration) → Data mart PostgreSQL → Tableau (dashboards métier).</p>
+            <p><strong>KPIs livrés :</strong> Taux d'occupation hôtels, pics saisonniers, CA par région (Marrakech, Agadir, Fès), prévisions de fréquentation.</p>
+            <p><strong>Impact métier :</strong> Optimisation des campagnes marketing et allocation des ressources hôtelières basée sur l'analyse historique et prédictive.</p>
             <div class="links">
-              <a href="https://github.com/Bertal-Youssef" aria-label="Voir sur GitHub">GitHub</a>
+              <a href="https://github.com/Bertal-Youssef/tourism_project/blob/main/README.md">🔗 GitHub</a>
             </div>
-          
+          </div>
         </article>
 
-        <!-- Card 2: Streaming Routes -->
-        <article class="card" data-tags="DE,Streaming">
-    <img src="assets/img/projects/streaming.jpeg" alt="Streaming Routes Dashboard" style="width:100%; height:180px; object-fit:cover;">
-    <div class="body">
-        <h3> Real-Time Route Analysis — Streaming</h3>
-        <div class="badges">
-            <span class="badge">Temps réel</span>
-            <span class="badge">Kafka</span>
-            <span class="badge">Elasticsearch</span>
-            <span class="badge">Kibana</span>
-        </div>
-        <p><strong>Impact :</strong> Dashboards dynamiques pour suivi en temps réel de la mobilité urbaine et interurbaine. Architecture scalable et résiliente avec Docker.</p>
-        <p><strong>Stack complète :</strong> Google Maps API → Producer/Consumer Python → Kafka → Elasticsearch → Kibana.</p>
-        <div class="links">
-            <a href="https://github.com/Bertal-Youssef">GitHub</a>
-        </div>
-    </div>
-</article>
+        <!-- Card 3: Streaming Routes -->
+        <article class="card" data-tags="Streaming,ETL">
+          <div class="thumb">
+            <img src="assets/img/projects/streaming.jpeg" alt="Streaming Routes">
+          </div>
+          <div class="body">
+            <h3> Real-Time Route Analysis — Streaming</h3>
+            <div class="badges">
+              <span class="badge">Temps réel</span>
+              <span class="badge">Kafka</span>
+              <span class="badge">Elasticsearch</span>
+              <span class="badge">Kibana</span>
+            </div>
+            <p><strong>Impact :</strong> Dashboards dynamiques pour suivi en temps réel de la mobilité urbaine et interurbaine. Architecture scalable et résiliente avec Docker.</p>
+            <p><strong>Stack complète :</strong> Google Maps API → Producer/Consumer Python → Kafka → Elasticsearch → Kibana.</p>
+            <p><strong>Résultats :</strong> Traitement de flux continu de géolocalisation, indexation pour recherche rapide, visualisations interactives temps réel.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
 
-       <article class="card" data-tags="MLOps,DE,DS">
-    <img src="assets/img/projects/mlops.jpeg" alt="mlops" style="width:100%; height:180px; object-fit:cover;">
-    
-    <div class="body">
-        <h3> SmartFactory — MLOps Maintenance Prédictive</h3>
-        <div class="badges">
-            <span class="badge">CI/CD</span>
-            <span class="badge">ZenML</span>
-            <span class="badge">MLflow</span>
-            <span class="badge">Docker</span>
-        </div>
-        <p><strong>Impact métier :</strong> Réduction des arrêts machines imprévus, amélioration de la continuité de production et baisse des coûts de maintenance corrective.</p>
-        <p><strong>Approche complète :</strong> Pipeline MLOps end-to-end avec tracking d'expériences, versioning des modèles et déploiement automatisé.</p>
-        <div class="links">
-            <a href="https://github.com/Bertal-Youssef">GitHub</a>
-        </div>
-    </div>
-</article>
+        <!-- Card 4: Tableau de Bord Commercial -->
+        <article class="card" data-tags="ETL,BI">
+          <div class="thumb"></div>
+          <div class="body">
+            <h3>📊Tableau de Bord Commercial — Pipeline ETL avec Talend</h3>
+            <div class="badges">
+              <span class="badge">Talend ETL</span>
+              <span class="badge">PostgreSQL</span>
+              <span class="badge">Power BI</span>
+            </div>
+            <p><strong>Pipeline :</strong> CSV/Excel → Talend ETL (nettoyage, transformation) → PostgreSQL → Power BI (dashboards interactifs).</p>
+            <p><strong>KPIs livrés :</strong> CA total, top 10 produits, panier moyen, marges par catégorie, taux de conversion, répartition géographique des ventes.</p>
+            <p><strong>Impact métier :</strong> Réduction de 80% du temps de reporting manuel, tableaux de bord accessibles en temps réel pour la direction commerciale.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
 
-<article class="card" data-tags="DS,DE">
-    <img src="assets/img/projects/yes.jpg" alt="mlops" style="width:100%; height:180px; object-fit:cover;">
+        <!-- Card 5: YesOrNo -->
+        <article class="card" data-tags="DS">
+          <div class="thumb">
+            <img src="assets/img/projects/yes.jpg" alt="YesOrNo">
+          </div>
+          <div class="body">
+            <h3> YesOrNo — Prédiction Comportement d'Achat</h3>
+            <div class="badges">
+              <span class="badge">Machine Learning</span>
+              <span class="badge">scikit-learn</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Dashboard</span>
+            </div>
+            <p><strong>Impact :</strong> Compréhension de l'influence des réseaux sociaux sur les décisions d'achat pour campagnes marketing ciblées.</p>
+            <p><strong>Pipeline complet :</strong> Collecte données d'enquête → nettoyage (Pandas) → modèles prédictifs → dashboard interactif Flask avec visualisations temps réel.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
 
-    <div class="body">
-        <h3> YesOrNo — Prédiction Comportement d'Achat</h3>
-        <div class="badges">
-            <span class="badge">Machine Learning</span>
-            <span class="badge">scikit-learn</span>
-            <span class="badge">Flask</span>
-            <span class="badge">Dashboard</span>
-        </div>
-        <p><strong>Impact :</strong> Compréhension de l'influence des réseaux sociaux sur les décisions d'achat pour campagnes marketing ciblées.</p>
-        <p><strong>Pipeline complet :</strong> Collecte données d'enquête → nettoyage (Pandas) → modèles prédictifs → dashboard interactif Flask avec visualisations temps réel.</p>
-        <div class="links">
-            <a href="https://github.com/Bertal-Youssef">GitHub</a>
-        </div>
-    </div>
-</article>
+        <!-- Card 6: TrainWise -->
+        <article class="card" data-tags="DS">
+          <div class="thumb">
+            <img src="assets/img/projects/fitness.jpg" alt="TrainWise">
+          </div>
+          <div class="body">
+            <h3>💪 TrainWise-AI-Fitness-App</h3>
+            <div class="badges">
+              <span class="badge">NLP</span>
+              <span class="badge">RAG</span>
+              <span class="badge">ChromaDB</span>
+              <span class="badge">Sentence Transformers</span>
+            </div>
+            <p><strong>Impact :</strong> Application de recommandation d'entraînements personnalisés utilisant la recherche sémantique et le NLP.</p>
+            <p><strong>Stack complète :</strong> Python (Flask), JavaScript, MongoDB, ChromaDB, Sentence Transformers.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
 
-<article class="card" data-tags="DE,ETL,BI">
-    <img src="assets/img/projects/fitness.jpg" alt="TrainWise-AI-Fitness-App" style="width:100%; height:180px; object-fit:cover;"> 
-    <div class="body">
-        <h3>TrainWise-AI-Fitness-App</h3>
-        <div class="badges">
-            <span class="badge">NLP</span>
-            <span class="badge">RAG</span>
-            <span class="badge">ChromaDB</span>
-            <span class="badge">Sentence Transformers</span>
-        </div>
-        <p><strong>Impact :</strong> Personalized workout recommendation app using semantic search and NLP</p>
-        <p><strong>Stack complète : </strong> Python (Flask), JavaScript, MongoDB, ChromaDB, Sentence Transformers</p>
-        <div class="links">
-            <a href="https://github.com/Bertal-Youssef">GitHub</a>
-        </div>
-    </div>
-</article>
-
-<article class="card" data-tags="DE,DS,AI">
-    <img src="assets/img/projects/Travel.jpeg" alt="Intelligent Travel Planning Agent" style="width:100%; height:180px; object-fit:cover;">
-    
-    <div class="body">
-        <h3> Intelligent Travel Planning Agent – AI-Powered Trip Itinerary Generator</h3>
-        <div class="badges">
-            <span class="badge">FastAPI</span>
-            <span class="badge">Streamlit</span>
-            <span class="badge">Google Gemini</span>
-            <span class="badge">OpenWeatherMap API</span>
-            <span class="badge">SMTP</span>
-        </div>
-        <p><strong>Impact :</strong> Planificateur de voyage intelligent proposant des itinéraires personnalisés, intégrant météo en temps réel, recommandations IA et envoi automatique par email.</p>
-        <p><strong>Stack complète :</strong> Python, FastAPI, Streamlit, Google Gemini, OpenWeatherMap API, SMTP.</p>
-        <div class="links">
-            <a href="https://github.com/Bertal-Youssef">GitHub</a>
-        </div>
-    </div>
-</article>
+        <!-- Card 7: Travel Planning -->
+        <article class="card" data-tags="DS">
+          <div class="thumb">
+            <img src="assets/img/projects/Travel.jpeg" alt="Travel Planning">
+          </div>
+          <div class="body">
+            <h3>✈️ Intelligent Travel Planning Agent — AI-Powered</h3>
+            <div class="badges">
+              <span class="badge">FastAPI</span>
+              <span class="badge">Streamlit</span>
+              <span class="badge">Google Gemini</span>
+              <span class="badge">OpenWeatherMap API</span>
+            </div>
+            <p><strong>Impact :</strong> Planificateur de voyage intelligent proposant des itinéraires personnalisés, intégrant météo en temps réel, recommandations IA et envoi automatique par email.</p>
+            <p><strong>Stack complète :</strong> Python, FastAPI, Streamlit, Google Gemini, OpenWeatherMap API, SMTP.</p>
+            <div class="links">
+              <a href="https://github.com/Bertal-Youssef/Intelligent-Travel-Planning-Agent/blob/main/README.md">🔗 GitHub</a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
-        <!-- COMPETITIONS -->
-    <section id="realisation" class="section" aria-labelledby="awards-title">
-    <h2 id="awards-title">🏆 Compétitions & Distinctions</h2>
 
-    <article class="card" style="grid-column: span 12; display: flex; flex-wrap: wrap; align-items: center; overflow: hidden;">
+    <!-- DISTINCTIONS -->
+    <section id="realisation" class="section" aria-labelledby="awards-title">
+      <h2 id="awards-title">🏆 Compétitions & Distinctions</h2>
+
+      <article class="card" style="grid-column: span 12; display: flex; flex-wrap: wrap; align-items: center; overflow: hidden;">
         <div style="flex:1; min-width:280px; position:relative;">
-            <img src="assets/img/projects/hackthon.jpg" alt="Équipe SALAMA - Hackathon TrainRail Africa 2024" style="width:100%; height:100%; object-fit:cover;">
-            
-            <div style="position:absolute; top:0; left:0; width:100%; height:80px; background-image:url('assets/img/projects/logo.png'); background-size:contain; background-repeat:no-repeat; background-position:center; background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour le logo */">
-                </div>
+          <img src="assets/img/projects/hackthon.jpg" alt="Équipe SALAMA - Hackathon TrainRail Africa 2024" style="width:100%; height:100%; object-fit:cover;">
+          <div style="position:absolute; top:0; left:0; width:100%; height:80px; background-image:url('assets/img/projects/logo.png'); background-size:contain; background-repeat:no-repeat; background-position:center; background-color: rgba(0, 0, 0, 0.7);"></div>
         </div>
         <div class="body" style="flex:1; min-width:280px;">
-            <h3> SALAMA — Sécurité Ferroviaire IA (🥈 2ᵉ place)</h3>
-            <div class="badges">
-                <span class="badge">YOLO11</span>
-                <span class="badge">LLaMA 3.2</span>
-                <span class="badge">Computer Vision</span>
-                <span class="badge">Hackathon Winner</span>
-            </div>
-            <p><strong>Résultat :</strong> 2ᵉ place au TrainRail Hackathon Africa 2024 (IFF, Rabat).</p>
-            <p><strong>Solution :</strong> Système de surveillance et prévention d'accidents ferroviaires combinant détection d'objets (YOLO11) et traitement du langage naturel (LLaMA 3.2).</p>
-            <div class="links">
-                <a href="https://github.com/Bertal-Youssef">GitHub</a>
-            </div>
+          <h3>🥈 SALAMA — Sécurité Ferroviaire IA (2ᵉ place)</h3>
+          <div class="badges">
+            <span class="badge">YOLO11</span>
+            <span class="badge">LLaMA 3.2</span>
+            <span class="badge">Computer Vision</span>
+            <span class="badge">Hackathon Winner</span>
+          </div>
+          <p><strong>Résultat :</strong> 2ᵉ place au TrainRail Hackathon Africa 2024 (IFF, Rabat).</p>
+          <p><strong>Solution :</strong> Système de surveillance et prévention d'accidents ferroviaires combinant détection d'objets (YOLO11) et traitement du langage naturel (LLaMA 3.2).</p>
+          <p><strong>Impact :</strong> Pipeline de traitement vidéo temps réel pour détection d'anomalies et alerting automatique, démontrant l'application de compétences Data Engineering (streaming, processing) au computer vision.</p>
+          <div class="links">
+            <a href="https://github.com/ai-salama">🔗 GitHub</a>
+          </div>
         </div>
-    </article>
-</section>
+      </article>
+    </section>
 
-
+    <!-- ABOUT -->
     <section id="about" class="section" aria-labelledby="about-title">
-    <h2 id="about-title">À propos</h2>
-    <div class="about">
-        
-        <div class="panel panel-padded"> <h3 class="panel-title">🎓 Profil</h3> <p><strong>Ingénieur d'État en Informatique (5ᵉ année)</strong> spécialisé Big Data & IA à l'Université Internationale de Rabat, avec un échange Erasmus à l'Universidad Complutense de Madrid (Jan-Juin 2025).</p>
-            <p class="muted-text"> Passionné par la transformation de données brutes en insights actionnables, j'ai développé une expertise solide en ingénierie de données et science des données à travers des stages, hackathons et projets concrets.
-            </p>
-            
-            <h4 class="section-subtitle brand-color mt-24">Parcours professionnel</h4> <ul class="list">
-                <li><strong>Stage Data Engineer/Scientist</strong> — Magrifly (Juin-Août 2025) : Pipelines de traitement d'images aériennes, data lake, Transfer Learning</li>
-                <li><strong>🥈 2ᵉ place Hackathon TrainRail Africa</strong> (Oct-Nov 2024) : Système IA de sécurité ferroviaire SALAMA</li>
-                <li><strong>Stage Technicien</strong> — Redal (Juin-Juillet 2024) : Infrastructure IT et systèmes de support</li>
-            </ul>
+      <h2 id="about-title">À propos</h2>
+      <div class="about">
+        <div class="panel" style="padding: 28px;">
+          <h3 style="margin: 0 0 16px; font-size: 1.3rem;">🎓 Profil</h3>
+          <p><strong>Ingénieur d'État en Informatique (5ᵉ année)</strong> spécialisé Big Data & IA à l'Université Internationale de Rabat, avec un échange Erasmus à l'Universidad Complutense de Madrid (Jan-Juin 2025).</p>
+          <p style="color: var(--muted);">Passionné par la construction d'architectures data robustes et scalables, j'ai développé une expertise solide en Data Engineering à travers des stages, hackathons et projets concrets.</p>
+          
+          <h4 style="margin: 24px 0 12px; color: var(--accent);">Parcours professionnel</h4>
+          <ul class="list">
+            <li><strong>Stage Data Engineer</strong> — Magrifly (Juin-Août 2025) : Pipelines de traitement d'images aériennes, data lake, orchestration production</li>
+            <li><strong>🥈 2ᵉ place Hackathon TrainRail Africa</strong> (Oct-Nov 2024) : Système IA de sécurité ferroviaire SALAMA</li>
+            <li><strong>Échange Erasmus</strong> — Universidad Complutense de Madrid (Jan-Juin 2025) : Enrichissement académique international</li>
+          </ul>
         </div>
         
-        <div class="panel panel-padded"> <h3 class="panel-title">Stack technique & méthodologies</h3> <h4 class="tech-stack-title">Technologies maîtrisées :</h4> <p class="tech-stack-list muted-text"> <strong class="brand-color">Data Engineering :</strong> Spark, PySpark, Airflow, Kafka, Nifi, Talend, HDFS, Hive, Snowflake<br>
-                <strong class="brand-color">Bases de données :</strong> PostgreSQL, MongoDB, ChromaDB<br>
-                <strong class="accent-color">Data Science & ML :</strong> Python, scikit-learn, TensorFlow, PyTorch, NLP, RAG<br>
-                <strong class="brand-2-color">MLOps & DevOps :</strong> ZenML, MLflow, Docker, CI/CD, GitHub Actions, Jenkins<br>
-                <strong class="warn-color">BI & Viz :</strong> Power BI (DAX), Grafana, Streamlit<br>
-                <strong class="text-color">Cloud :</strong> Microsoft Azure (Data Lake, ML Services)
-            </p>
-            
-            <h4 class="section-subtitle brand-color mt-24">Bonnes pratiques</h4> <p class="muted-text font-small">Architecture modulaire • Observabilité & monitoring • Traçabilité des données • Reproductibilité des expériences • Code optimization • Design patterns</p>
-            
-            <h4 class="section-subtitle brand-color mt-24">Langues</h4> <p class="muted-text font-small">Français (courant) • Anglais (courant) • Arabe (natif) • Espagnol (intermédiaire)</p>
+        <div class="panel" style="padding: 28px;">
+          <h3 style="margin: 0 0 16px; font-size: 1.3rem;">🛠️ Méthodologies & Bonnes Pratiques</h3>
+          <p style="color: var(--muted); font-size: 0.95rem;">
+            <strong style="color: var(--text);">Architecture :</strong> Medallion, Lambda, Kappa<br>
+            <strong style="color: var(--text);">Data Quality :</strong> Validation, tests, monitoring<br>
+            <strong style="color: var(--text);">Performance :</strong> Optimisation requêtes, partitioning, caching<br>
+            <strong style="color: var(--text);">Observabilité :</strong> Logging, alerting, tracing<br>
+            <strong style="color: var(--text);">DevOps :</strong> CI/CD, Infrastructure as Code, containerisation
+          </p>
+          
+          <h4 style="margin: 24px 0 12px; color: var(--accent);">Langues</h4>
+          <p style="color: var(--muted); font-size: 0.95rem;">Français (courant) • Anglais (courant) • Arabe (natif) • Espagnol (intermédiaire)</p>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact" class="section" aria-labelledby="contact-title">
       <h2 id="contact-title">Prêt à démarrer ?</h2>
-      <div class="panel" style="padding: 36px; text-align: center; background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12)); border: 2px solid rgba(59, 130, 246, 0.3);">
-        <h3 style="margin: 0 0 18px; font-size: 1.6rem;"> Recherche Stage PFE — 6 mois (Jan/Fév 2026)</h3>
+      <div class="panel" style="padding: 36px; text-align: center; background: linear-gradient(135deg, rgba(123, 44, 191, 0.15), rgba(0, 240, 255, 0.15)); border: 2px solid rgba(0, 240, 255, 0.4);">
+        <h3 style="margin: 0 0 18px; font-size: 1.6rem;">🎯 Recherche Stage PFE — 6 mois (Jan/Fév 2026)</h3>
         <p style="font-size: 1.1rem; margin: 0 0 28px; color: var(--muted); max-width: 800px; margin-left: auto; margin-right: auto;">
-          Vous cherchez un Data Engineer/Scientist pour concevoir des pipelines robustes, automatiser vos processus data ou déployer des modèles ML en production ? Discutons de votre projet !
+          Vous cherchez un Data Engineer pour concevoir des pipelines robustes, architecturer des data lakehouses ou optimiser vos workflows data ? Discutons de votre projet !
         </p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
           <a class="btn primary" href="mailto:youssefbertal00@gmail.com" style="font-size: 1.05rem; padding: 14px 28px;">
-            📧 youssefbertal00@gmail.com
+            <span>📧 youssefbertal00@gmail.com</span>
           </a>
           <a class="btn" href="https://www.linkedin.com/in/youssef-bertal-7a581b271" target="_blank" rel="noopener" style="font-size: 1.05rem; padding: 14px 28px;">
-            💼 LinkedIn
+            <span>💼 LinkedIn</span>
           </a>
           <a class="btn" href="https://github.com/Bertal-Youssef" target="_blank" rel="noopener" style="font-size: 1.05rem; padding: 14px 28px;">
-            💻 GitHub
+            <span>💻 GitHub</span>
           </a>
         </div>
       </div>
@@ -474,7 +755,7 @@
 
   <footer>
     <div class="wrap">
-      <p style="margin: 0 0 8px;">© <span id="y"></span> Youssef Bertal — Data Engineer/Scientist</p>
+      <p style="margin: 0 0 8px;">© <span id="y"></span> Youssef Bertal — Data Engineer</p>
       <p style="margin: 0; font-size: .9rem;">Rabat, Maroc • Disponible pour stage PFE 6 mois</p>
     </div>
   </footer>
@@ -515,7 +796,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Youssef Bertal",
-    "jobTitle": "Data Engineer & Data Scientist",
+    "jobTitle": "Data Engineer",
     "email": "mailto:youssefbertal00@gmail.com",
     "telephone": "+212-600-95-35-68",
     "url": "https://Bertal-Youssef.github.io/",
@@ -528,7 +809,7 @@
       "@type": "EducationalOrganization",
       "name": "Université Internationale de Rabat"
     },
-    "knowsAbout": ["Data Engineering", "Data Science", "Machine Learning", "MLOps", "Big Data", "Apache Spark", "Python", "Kafka", "Power BI"],
+    "knowsAbout": ["Data Engineering", "Big Data", "Apache Spark", "Python", "Kafka", "Airflow", "ETL", "Data Lakehouse", "Streaming"],
     "sameAs": [
       "https://www.linkedin.com/in/youssef-bertal-7a581b271",
       "https://github.com/Bertal-Youssef"
